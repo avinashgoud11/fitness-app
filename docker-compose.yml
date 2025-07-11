@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: Avinashgoud@19
+      MYSQL_DATABASE: fitness_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: Avinashgoud@19
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  fitness-app:
+    build: .
+    container_name: fitness-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fitness_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Avinashgoud@19
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: your-very-secure-secret-key-at-least-256-bits-long
+      JWT_EXPIRATION: 86400000
+      
+    restart: always
+
+volumes:
+  mysql-data:
