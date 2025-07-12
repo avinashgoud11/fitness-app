@@ -2,19 +2,19 @@
 FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
-# Copy pom first so Maven can cache dependencies
+# Copy Maven descriptor first so dependencies are cached
 COPY pom.xml .
-RUN mvn -B dependency:go-offline               # download deps into cache
+RUN mvn -B dependency:go-offline
 
-# Copy the source code and build the JAR
+# Copy source and build
 COPY src ./src
-RUN mvn -B -DskipTests clean package           # produces target/*.jar
+RUN mvn -B -DskipTests clean package     # creates target/*.jar
 
-######################## 2) Runtime stage ######################
+######################## 2) Runtime stage #####################
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 
-# Copy the built JAR from the previous stage
+# Copy the JAR produced in the build stage
 COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
