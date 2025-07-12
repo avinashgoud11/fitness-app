@@ -9,8 +9,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +35,8 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    
+
     /**
      * Authenticate user and generate JWT token
      * @param username Username
@@ -170,7 +170,7 @@ public class AuthService {
     public boolean validateToken(String token) {
         try {
             String username = jwtUtils.extractUsername(token);
-           UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
             return jwtUtils.validateToken(token, userDetails);
         } catch (Exception e) {
             return false;

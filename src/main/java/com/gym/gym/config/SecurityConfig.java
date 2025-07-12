@@ -49,7 +49,7 @@ public class SecurityConfig {
         return authConfig.getAuthenticationManager();
     }
 
-   @Bean
+    @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
     http
         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
