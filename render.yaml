@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: fitness-app
+    env: docker
+    plan: free
+    dockerContext: .
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar target/*.jar
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://mysql-db:3306/fitness_db
+      - key: SPRING_DATASOURCE_USERNAME
+        value: root
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: Avinashgoud@19
+
+  - type: private
+    name: mysql-db
+    env: docker
+    plan: free
+    dockerContext: ./mysql-service
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        value: Avinashgoud@19
+      - key: MYSQL_DATABASE
+        value: fitness_db
+      - key: MYSQL_USER
+        value: root
+      - key: MYSQL_PASSWORD
+        value: Avinashgoud@19
