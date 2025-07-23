@@ -16,7 +16,7 @@
 [INFO] Compiling 66 source files with javac [debug release 17] to target\classes
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ hello ---
-[INFO] skip non existing resourceDirectory C:\Users\HP\OneDrive\Desktop\Fitness\embrance-fitness\backend\hello\src\test\resources
+[INFO] skip non existing resourceDirectory C:\Users\HP\OneDrive\Desktop\Fitness\-fitness\backend\hello\src\test\resources
 [INFO] 
 [INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ hello ---
 [INFO] Changes detected - recompiling the module! :dependency
@@ -35,7 +35,7 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.3)
 
-2025-06-25T01:26:42.807+05:30  INFO 41256 --- [           main] com.gym.gym.GymManagementApplication     : Starting GymManagementApplication using Java 17.0.14 with PID 41256 (C:\Users\HP\OneDrive\Desktop\Fitness\embrance-fitness\backend\hello\target\classes started by HP in C:\Users\HP\OneDrive\Desktop\Fitness\embrance-fitness\backend\hello)
+2025-06-25T01:26:42.807+05:30  INFO 41256 --- [           main] com.gym.gym.GymManagementApplication     : Starting GymManagementApplication using Java 17.0.14 with PID 41256 (C:\Users\HP\OneDrive\Desktop\Fitness\-fitness\backend\hello\target\classes started by HP in C:\Users\HP\OneDrive\Desktop\Fitness\fitness\backend\hello)
 2025-06-25T01:26:42.809+05:30 DEBUG 41256 --- [           main] com.gym.gym.GymManagementApplication     : Running with Spring Boot v3.2.3, Spring v6.1.4
 2025-06-25T01:26:42.811+05:30  INFO 41256 --- [           main] com.gym.gym.GymManagementApplication     : No active profile set, falling back to 1 default profile: "default"
 2025-06-25T01:26:43.699+05:30  INFO 41256 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
