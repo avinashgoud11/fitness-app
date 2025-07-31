@@ -32,23 +32,23 @@ import com.gym.gym.service.CustomUserDetailsService; // Import your CustomUserDe
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtUtils jwtUtils;
     private final CustomUserDetailsService customUserDetailsService; // Inject CustomUserDetailsService
     private final PasswordEncoder passwordEncoder;
 
     // Constructor Injection for dependencies
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
-                          CustomUserDetailsService customUserDetailsService, // Added CustomUserDetailsService
-                        PasswordEncoder passwordEncoder) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-        this.customUserDetailsService = customUserDetailsService; // Assign it
+    public SecurityConfig(CustomUserDetailsService customUserDetailsService,
+                        PasswordEncoder passwordEncoder,
+                        JwtUtils jwtUtils) {
+        this.customUserDetailsService = customUserDetailsService;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
     }
 
-    // @Bean
-    // public JwtAuthenticationFilter jwtAuthenticationFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
-    //     return new JwtAuthenticationFilter(jwtUtils, userDetailsService);
-    // }
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
+        return new JwtAuthenticationFilter(jwtUtils, userDetailsService);
+    }
 
     // This bean now correctly returns your CustomUserDetailsService
     @Bean
@@ -56,10 +56,10 @@ public class SecurityConfig {
         return customUserDetailsService;
     }
 
-    @Bean
-    public JwtUtils jwtUtils() {
-        return new JwtUtils();
-    }
+    // @Bean
+    // public JwtUtils jwtUtils() {
+    //     return new JwtUtils();
+    // }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -146,7 +146,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtAuthenticationFilter(jwtUtils, customUserDetailsService), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
