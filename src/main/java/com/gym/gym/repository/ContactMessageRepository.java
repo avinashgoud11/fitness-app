@@ -25,9 +25,9 @@ public interface ContactMessageRepository extends JpaRepository<ContactMessage, 
 
     
     @Query("SELECT m FROM ContactMessage m WHERE " +
-           "LOWER(m.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-           "LOWER(m.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-           "LOWER(m.subject) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
-           "LOWER(m.message) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+            "LOWER(m.name) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(m.email) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(m.subject) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
+            "LOWER(m.message) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<ContactMessage> searchByKeyword(@Param("keyword") String keyword);
 } 
