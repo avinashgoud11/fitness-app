@@ -6,38 +6,55 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import com.gym.gym.model.JwtAuthenticationFilter;
 import com.gym.gym.model.JwtUtils;
-import com.gym.gym.service.AuthService;
+import com.gym.gym.service.CustomUserDetailsService; // Import your CustomUserDetailsService
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
+
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CustomUserDetailsService customUserDetailsService; // Inject CustomUserDetailsService
+    private final PasswordEncoder passwordEncoder;
+
+    // Constructor Injection for dependencies
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
+                          CustomUserDetailsService customUserDetailsService, // Added CustomUserDetailsService
+                          PasswordEncoder passwordEncoder) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.customUserDetailsService = customUserDetailsService; // Assign it
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
         return new JwtAuthenticationFilter(jwtUtils, userDetailsService);
     }
 
-    // @Bean
-    // public UserDetailsService userDetailsService(AuthService authService) {
-    //     return authService;
-    // }
+    // This bean now correctly returns your CustomUserDetailsService
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return customUserDetailsService;
+    }
 
     @Bean
     public JwtUtils jwtUtils() {
@@ -50,97 +67,89 @@ public class SecurityConfig {
     }
 
     @Bean
-public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
-    http
-        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-        .csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests(auth -> auth
-            // Allow pre-flight OPTIONS requests
-            .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+    public DaoAuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
 
-            // Publicly accessible general endpoints
-            .requestMatchers(
-                "/",                    // <--- ADDED: Allow root path
-                "/hello", "/api/hello",
-                "/greeting", "/api/greeting",
-                "/status", "/api/status",
-                "/error", "/api/error"
-            ).permitAll()
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
+        MvcRequestMatcher.Builder mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
 
-            // Authentication endpoints are public
-            .requestMatchers("/auth/**", "/api/auth/**").permitAll()
+        http
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(
+                    mvcMatcherBuilder.pattern("/"),
+                    mvcMatcherBuilder.pattern("/favicon.ico"),
+                    mvcMatcherBuilder.pattern("/hello"),
+                    mvcMatcherBuilder.pattern("/api/hello"),
+                    mvcMatcherBuilder.pattern("/greeting"),
+                    mvcMatcherBuilder.pattern("/api/greeting"),
+                    mvcMatcherBuilder.pattern("/status"),
+                    mvcMatcherBuilder.pattern("/api/status"),
+                    mvcMatcherBuilder.pattern("/error"),
+                    mvcMatcherBuilder.pattern("/api/error")
+                ).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern("/auth/**"), mvcMatcherBuilder.pattern("/api/auth/**")).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern("/api/admins/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/class-bookings")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/class-bookings/{bookingId}/cancel")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/class-bookings/{bookingId}/status")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/class-bookings/{bookingId}")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/class-bookings/member/{memberId}")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/class-bookings/class/{classId}")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/class-bookings/{bookingId}")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/class-bookings/active")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/class-bookings/cancelled")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/progress")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/progress/{id}")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/progress/{id}")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/progress")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/progress/{id}")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/progress/member/{memberId}")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/progress/member/{memberId}/date-range")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/progress/member/{memberId}/recent")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/members/**")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern("/api/members/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/classes/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/classes/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/classes/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/classes/**")).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/workouts/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/workouts/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/workouts/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/workouts/**")).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/contact-messages")).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern("/api/contact-messages/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/users")).permitAll()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users/{id}")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users/username/**")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users/email/**")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users/role/**")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users/enabled")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users/disabled")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users/search")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/users/{id}")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/users/{id}/password")).authenticated()
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/users/{id}/role")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PUT, "/api/users/{id}/enabled")).hasAuthority("ROLE_ADMIN")
+                .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/users/{id}")).hasAuthority("ROLE_ADMIN")
+                .anyRequest().authenticated()
+            )
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+            .authenticationProvider(authenticationProvider())
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-            // Admin-only endpoints
-            .requestMatchers("/api/admins/**").hasAuthority("ROLE_ADMIN")
-
-            // Class Bookings Endpoints (Granular Control) - THIS IS MUCH BETTER
-            .requestMatchers(HttpMethod.POST, "/api/class-bookings").authenticated() // Members can create bookings
-            .requestMatchers(HttpMethod.PUT, "/api/class-bookings/{bookingId}/cancel").authenticated() // Members can cancel their own bookings (service will validate ownership)
-            .requestMatchers(HttpMethod.PUT, "/api/class-bookings/{bookingId}/status").hasAuthority("ROLE_ADMIN") // Only admins can update booking status
-            .requestMatchers(HttpMethod.DELETE, "/api/class-bookings/{bookingId}").hasAuthority("ROLE_ADMIN") // Only admins can delete bookings
-
-            // GET requests for class bookings
-            .requestMatchers(HttpMethod.GET, "/api/class-bookings/member/{memberId}").authenticated() // Members can view their own bookings, admins can view any
-            .requestMatchers(HttpMethod.GET, "/api/class-bookings/class/{classId}").authenticated() // Members can view bookings for a specific class (e.g., to see who's attending)
-            .requestMatchers(HttpMethod.GET, "/api/class-bookings/{bookingId}").authenticated() // Members can view their specific booking, admins can view any
-            .requestMatchers(HttpMethod.GET, "/api/class-bookings/active").hasAuthority("ROLE_ADMIN") // Only admins can see all active bookings
-            .requestMatchers(HttpMethod.GET, "/api/class-bookings/cancelled").hasAuthority("ROLE_ADMIN") // Only admins can see all cancelled bookings
-// Fitness Progress Endpoints (Granular Control)
-.requestMatchers(HttpMethod.POST, "/api/progress").authenticated() // Members can create their own progress
-.requestMatchers(HttpMethod.PUT, "/api/progress/{id}").authenticated() // Members can update their own progress (service will validate ownership)
-.requestMatchers(HttpMethod.DELETE, "/api/progress/{id}").hasAuthority("ROLE_ADMIN") // Only admins can delete progress
-
-// GET requests for fitness progress
-.requestMatchers(HttpMethod.GET, "/api/progress").hasAuthority("ROLE_ADMIN") // Only admins can view all progress entries
-.requestMatchers(HttpMethod.GET, "/api/progress/{id}").authenticated() // Members can view their specific progress, admins can view any
-.requestMatchers(HttpMethod.GET, "/api/progress/member/{memberId}").authenticated() // Members can view their own progress, admins can view any
-.requestMatchers(HttpMethod.GET, "/api/progress/member/{memberId}/date-range").authenticated() // Members can view their own progress in range, admins can view any
-.requestMatchers(HttpMethod.GET, "/api/progress/member/{memberId}/recent").authenticated() // Members can view their own recent progress, admins can view any
-
-            // Other API endpoints - apply granular control as recommended previously - THIS IS ALSO MUCH BETTER
-            .requestMatchers(HttpMethod.GET, "/api/members/**").authenticated() // Members can view their own profile, Admins can view all
-            .requestMatchers("/api/members/**").hasAuthority("ROLE_ADMIN") // Admins can manage all members
-            .requestMatchers(HttpMethod.POST, "/api/classes/**").hasAuthority("ROLE_ADMIN")
-            .requestMatchers(HttpMethod.PUT, "/api/classes/**").hasAuthority("ROLE_ADMIN")
-            .requestMatchers(HttpMethod.DELETE, "/api/classes/**").hasAuthority("ROLE_ADMIN")
-            .requestMatchers(HttpMethod.GET, "/api/classes/**").permitAll() // Anyone can view classes schedules
-
-            .requestMatchers(HttpMethod.POST, "/api/workouts/**").hasAuthority("ROLE_ADMIN")
-            .requestMatchers(HttpMethod.PUT, "/api/workouts/**").hasAuthority("ROLE_ADMIN")
-            .requestMatchers(HttpMethod.DELETE, "/api/workouts/**").hasAuthority("ROLE_ADMIN")
-            .requestMatchers(HttpMethod.GET, "/api/workouts/**").permitAll() // Example: view workout plans
-
-            .requestMatchers(HttpMethod.POST, "/api/contact-messages").permitAll() // Anyone can send a message
-            .requestMatchers("/api/contact-messages/**").hasAuthority("ROLE_ADMIN") // Only admins can manage contact messages (GET, PUT, DELETE)
-
-            // User Management Endpoints (Granular Control)
-.requestMatchers(HttpMethod.POST, "/api/users").permitAll() // Allow new user registration
-.requestMatchers(HttpMethod.GET, "/api/users").hasAuthority("ROLE_ADMIN") // Only admins get all users
-.requestMatchers(HttpMethod.GET, "/api/users/{id}").authenticated() // Users can fetch their own (add backend check)
-.requestMatchers(HttpMethod.GET, "/api/users/username/**").authenticated()
-.requestMatchers(HttpMethod.GET, "/api/users/email/**").authenticated()
-.requestMatchers(HttpMethod.GET, "/api/users/role/**").hasAuthority("ROLE_ADMIN")
-.requestMatchers(HttpMethod.GET, "/api/users/enabled").hasAuthority("ROLE_ADMIN")
-.requestMatchers(HttpMethod.GET, "/api/users/disabled").hasAuthority("ROLE_ADMIN")
-.requestMatchers(HttpMethod.GET, "/api/users/search").hasAuthority("ROLE_ADMIN")
-
-.requestMatchers(HttpMethod.PUT, "/api/users/{id}").authenticated() // Users update themselves (add backend check)
-.requestMatchers(HttpMethod.PUT, "/api/users/{id}/password").authenticated()
-.requestMatchers(HttpMethod.PUT, "/api/users/{id}/role").hasAuthority("ROLE_ADMIN")
-.requestMatchers(HttpMethod.PUT, "/api/users/{id}/enabled").hasAuthority("ROLE_ADMIN")
-
-.requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasAuthority("ROLE_ADMIN")
-
-            // All remaining requests must be authenticated
-            .anyRequest().authenticated()
-        )
-        .sessionManagement(session -> session
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        )
-        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-    return http.build();
-}
+        return http.build();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -150,7 +159,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticat
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://localhost:5500", "https://legendary-ganache-a2dcf3.netlify.app/","https://cheery-maamoul-a63002.netlify.app/"));
+        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://localhost:5500", "https://legendary-ganache-a2dcf3.netlify.app/", "https://cheery-maamoul-a63002.netlify.app/", "https://fitness-app-0zk0.onrender.com"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList(
             "Authorization",

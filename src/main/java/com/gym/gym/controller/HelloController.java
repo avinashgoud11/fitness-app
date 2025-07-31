@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
+    // This method will handle requests to the root path "/"
+    @GetMapping("/")
+    public String home() {
+        return "Welcome to the Fitness API! The backend is running.";
+    }
+
     @GetMapping({"/hello", "/api/hello"})
     public String sayHello() {
         return "Hello from HelloController!";
