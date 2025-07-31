@@ -39,16 +39,16 @@ public class SecurityConfig {
     // Constructor Injection for dependencies
     public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
                           CustomUserDetailsService customUserDetailsService, // Added CustomUserDetailsService
-                          PasswordEncoder passwordEncoder) {
+                        PasswordEncoder passwordEncoder) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
         this.customUserDetailsService = customUserDetailsService; // Assign it
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Bean
-    public JwtAuthenticationFilter jwtAuthenticationFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
-        return new JwtAuthenticationFilter(jwtUtils, userDetailsService);
-    }
+    // @Bean
+    // public JwtAuthenticationFilter jwtAuthenticationFilter(JwtUtils jwtUtils, UserDetailsService userDetailsService) {
+    //     return new JwtAuthenticationFilter(jwtUtils, userDetailsService);
+    // }
 
     // This bean now correctly returns your CustomUserDetailsService
     @Bean
