@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/class-bookings")
@@ -25,21 +26,28 @@ public class ClassBookingController {
      * @param classId Fitness Class ID
      * @return Created booking
      */
-    @PostMapping
-    public ResponseEntity<?> createBooking(
-            @RequestParam Long memberId,
-            @RequestParam Long classId) {
-        try {
-            ClassBooking booking = classBookingService.createBooking(memberId, classId);
-            return ResponseEntity.ok(booking);
-        } catch (ClassFullException e) {
-            return ResponseEntity.badRequest().body("Class is full: " + e.getMessage());
-        } catch (DuplicateResourceException e) {
-            return ResponseEntity.badRequest().body("Duplicate booking: " + e.getMessage());
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body("Error creating booking: " + e.getMessage());
+// Corrected Backend Code
+@PostMapping
+public ResponseEntity<?> createBooking(@RequestBody Map<String, Long> bookingRequest) {
+    try {
+        Long memberId = bookingRequest.get("memberId");
+        Long classId = bookingRequest.get("classId");
+        
+        // Add null checks for memberId and classId if they are required
+        if (memberId == null || classId == null) {
+            return ResponseEntity.badRequest().body("Member ID and Class ID are required.");
         }
+
+        ClassBooking booking = classBookingService.createBooking(memberId, classId);
+        return ResponseEntity.ok(booking);
+    } catch (ClassFullException e) {
+        return ResponseEntity.badRequest().body("Class is full: " + e.getMessage());
+    } catch (DuplicateResourceException e) {
+        return ResponseEntity.badRequest().body("Duplicate booking: " + e.getMessage());
+    } catch (RuntimeException e) {
+        return ResponseEntity.badRequest().body("Error creating booking: " + e.getMessage());
     }
+}
 
     /**
      * Cancel a class booking
