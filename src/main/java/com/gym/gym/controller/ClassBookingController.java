@@ -24,6 +24,7 @@ public class ClassBookingController {
      * Create a new class booking
      * @param memberId Member ID
      * @param classId Fitness Class ID
+     * @param bookingRequest A map containing memberId and classId
      * @return Created booking
      */
 // Corrected Backend Code
