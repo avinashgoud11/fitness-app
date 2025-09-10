@@ -147,7 +147,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtAuthenticat
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://localhost:5500", "https://legendary-ganache-a2dcf3.netlify.app/","https://cheery-maamoul-a63002.netlify.app/", "http://127.0.0.1:5505"));
+        configuration.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://localhost:5500", "https://legendary-ganache-a2dcf3.netlify.app/","https://cheery-maamoul-a63002.netlify.app/","https://taupe-klepon-cacef4.netlify.app/"
+        , "http://127.0.0.1:5505"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList(
             "Authorization",
