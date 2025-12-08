@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="img-src 'self' data: https://images.unsplash.com; ...other directives...">
+    <title> Fitness - Classes</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./images/logo-photo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1> Fitness</h1>
+        </div>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="trainer.html">Fitness Trainer</a></li>
+            <li><a href="classes.html" class="active">Classes</a></li>
+            <li><a href="memberships.html">Memberships</a></li>
+            <li><a href="tracker.html">Fitness Tracker</a></li>
+            <li><a href="profile.html" >Profile</a></li>
+        </ul>
+    </nav>
+
+    <main class="classes-page">
+        <section class="classes-hero">
+            <h1>Group Fitness Classes</h1>
+            <p>Join our energetic group sessions and achieve your fitness goals together</p>
+            <a href="#schedule" class="cta-button">View Schedule</a>
+            
+        </section>
+
+        <section id="schedule" class="class-schedule">
+            <h2>Weekly Class Schedule</h2>
+            <div class="schedule-filters">
+                <button class="filter-btn active" data-filter="all">All Classes</button>
+                <button class="filter-btn" data-filter="cardio">Cardio</button>
+                <button class="filter-btn" data-filter="strength">Strength</button>
+                <button class="filter-btn" data-filter="yoga">Yoga</button>
+            </div>
+            <div class="schedule-grid">
+                <div class="schedule-card" data-category="cardio">
+                    <h3>Monday</h3>
+                    <ul>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">6:00 AM</span>
+                                <span class="class-name">Morning HIIT</span>
+                                <span class="instructor">Mike Wilson</span>
+                            </div>
+                            <button class="book-btn" data-class="Morning HIIT" data-time="6:00 AM" data-instructor="Mike Wilson">Book Now</button>
+                        </li>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">9:00 AM</span>
+                                <span class="class-name">Cardio Blast</span>
+                                <span class="instructor">Sarah Johnson</span>
+                            </div>
+                            <button class="book-btn" data-class="Cardio Blast" data-time="9:00 AM" data-instructor="Sarah Johnson">Book Now</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="schedule-card" data-category="strength">
+                    <h3>Tuesday</h3>
+                    <ul>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">7:00 AM</span>
+                                <span class="class-name">Power Lifting</span>
+                                <span class="instructor">John Smith</span>
+                            </div>
+                            <button class="book-btn" data-class="Power Lifting" data-time="7:00 AM" data-instructor="John Smith">Book Now</button>
+                        </li>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">5:00 PM</span>
+                                <span class="class-name">Strength Training</span>
+                                <span class="instructor">Mike Wilson</span>
+                            </div>
+                            <button class="book-btn" data-class="Strength Training" data-time="5:00 PM" data-instructor="Mike Wilson">Book Now</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="schedule-card" data-category="yoga">
+                    <h3>Wednesday</h3>
+                    <ul>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">8:00 AM</span>
+                                <span class="class-name">Yoga Flow</span>
+                                <span class="instructor">Sarah Johnson</span>
+                            </div>
+                            <button class="book-btn" data-class="Yoga Flow" data-time="8:00 AM" data-instructor="Sarah Johnson">Book Now</button>
+                        </li>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">6:00 PM</span>
+                                <span class="class-name">Power Yoga</span>
+                                <span class="instructor">Emma Davis</span>
+                            </div>
+                            <button class="book-btn" data-class="Power Yoga" data-time="6:00 PM" data-instructor="Emma Davis">Book Now</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="schedule-card" data-category="cardio">
+                    <h3>Thursday</h3>
+                    <ul>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">6:30 AM</span>
+                                <span class="class-name">Morning Run</span>
+                                <span class="instructor">Mike Wilson</span>
+                            </div>
+                            <button class="book-btn" data-class="Morning Run" data-time="6:30 AM" data-instructor="Mike Wilson">Book Now</button>
+                        </li>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">5:30 PM</span>
+                                <span class="class-name">Spin Class</span>
+                                <span class="instructor">John Smith</span>
+                            </div>
+                            <button class="book-btn" data-class="Spin Class" data-time="5:30 PM" data-instructor="John Smith">Book Now</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="schedule-card" data-category="strength">
+                    <h3>Friday</h3>
+                    <ul>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">7:30 AM</span>
+                                <span class="class-name">CrossFit</span>
+                                <span class="instructor">John Smith</span>
+                            </div>
+                            <button class="book-btn" data-class="CrossFit" data-time="7:30 AM" data-instructor="John Smith">Book Now</button>
+                        </li>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">4:00 PM</span>
+                                <span class="class-name">Body Pump</span>
+                                <span class="instructor">Sarah Johnson</span>
+                            </div>
+                            <button class="book-btn" data-class="Body Pump" data-time="4:00 PM" data-instructor="Sarah Johnson">Book Now</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="schedule-card" data-category="yoga">
+                    <h3>Saturday</h3>
+                    <ul>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">9:00 AM</span>
+                                <span class="class-name">Yoga & Meditation</span>
+                                <span class="instructor">Emma Davis</span>
+                            </div>
+                            <button class="book-btn" data-class="Yoga & Meditation" data-time="9:00 AM" data-instructor="Emma Davis">Book Now</button>
+                        </li>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">10:30 AM</span>
+                                <span class="class-name">Stretching & Flexibility</span>
+                                <span class="instructor">Sarah Johnson</span>
+                            </div>
+                            <button class="book-btn" data-class="Stretching & Flexibility" data-time="10:30 AM" data-instructor="Sarah Johnson">Book Now</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="schedule-card" data-category="cardio">
+                    <h3>Sunday</h3>
+                    <ul>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">8:00 AM</span>
+                                <span class="class-name">Sunday HIIT</span>
+                                <span class="instructor">Mike Wilson</span>
+                            </div>
+                            <button class="book-btn" data-class="Sunday HIIT" data-time="8:00 AM" data-instructor="Mike Wilson">Book Now</button>
+                        </li>
+                        <li>
+                            <div class="class-info">
+                                <span class="time">10:00 AM</span>
+                                <span class="class-name">Cardio Dance</span>
+                                <span class="instructor">Emma Davis</span>
+                            </div>
+                            <button class="book-btn" data-class="Cardio Dance" data-time="10:00 AM" data-instructor="Emma Davis">Book Now</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Modal -->
+        <div id="bookingModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <h2>Book Your Class</h2>
+                <form id="bookingForm">
+                    <div class="form-group">
+                        <label for="className">Class Name</label>
+                        <input type="text" id="className" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="classTime">Time</label>
+                        <input type="text" id="classTime" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="instructor">Instructor</label>
+                        <input type="text" id="instructor" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberName">Your Name</label>
+                        <input type="text" id="memberName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberEmail">Email</label>
+                        <input type="email" id="memberEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memberPhone">Phone</label>
+                        <input type="tel" id="memberPhone" required>
+                    </div>
+                    <button type="submit" class="cta-button">Confirm Booking</button>
+                    <!-- <button type="button" id="cancelBookingBtn" class="cancel-btn">Cancel</button> -->
+                </form>
+            </div>
+        </div>
+
+        <section class="class-types">
+            <h2>Class Types</h2>
+            <div class="class-types-grid">
+                <div class="class-type-card">
+                    <i class="fas fa-running"></i>
+                    <h3>Cardio Classes</h3>
+                    <p>High-energy workouts to boost your cardiovascular fitness</p>
+                    <ul>
+                        <li>HIIT Training</li>
+                        <li>Spin Classes</li>
+                        <li>Cardio Dance</li>
+                        <li>Running Groups</li>
+                    </ul>
+                </div>
+                <div class="class-type-card">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Strength Classes</h3>
+                    <p>Build muscle and increase your overall strength</p>
+                    <ul>
+                        <li>Power Lifting</li>
+                        <li>CrossFit</li>
+                        <li>Body Pump</li>
+                        <li>Strength Training</li>
+                    </ul>
+                </div>
+                <div class="class-type-card">
+                    <i class="fas fa-pray"></i>
+                    <h3>Yoga & Flexibility</h3>
+                    <p>Improve flexibility and find your inner peace</p>
+                    <ul>
+                        <li>Yoga Flow</li>
+                        <li>Power Yoga</li>
+                        <li>Meditation</li>
+                        <li>Stretching</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3> Fitness</h3>
+                <p>Your journey to fitness starts here</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@fitness.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024  Fitness. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="api-service.js"></script>
+    <script src="auth.js"></script>
+    <script src="classes.js"></script>
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/your-kit-code.js"></script>
+    <script src="contact.js"></script>
+
+</body>
+
+</html>

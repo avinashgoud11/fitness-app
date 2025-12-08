@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Fitness - Join Now</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./images/logo-photo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1> Fitness</h1>
+        </div>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="trainer.html">Fitness Trainer</a></li>
+            <li><a href="classes.html">Classes</a></li>
+            <li><a href="memberships.html">Memberships</a></li>
+            <li><a href="tracker.html">Fitness Tracker</a></li>
+            <li><a href="profile.html">Profile</a></li>
+        </ul>
+    </nav>
+
+    <main class="register-page">
+        <section class="register-hero">
+            <h1>Join  Fitness</h1>
+            <p>Start your fitness journey today</p>
+        </section>
+
+        <section class="register-form-section">
+            <div class="form-container">
+                <h2>Create Your Account</h2>
+                <form id="registrationForm" class="register-form">
+                    <div class="form-group">
+                        <label for="regEmail">Email:</label>
+                        <input type="email" id="regEmail" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPassword">Create Password:</label>
+                        <input type="password" id="regPassword" name="password" required>
+                        <div class="password-requirements">
+                            <p>Password must:</p>
+                            <ul>
+                                <li id="length">Be at least 8 characters long</li>
+                                <li id="uppercase">Contain at least one uppercase letter</li>
+                                <li id="number">Contain at least one number</li>
+                                <li id="special">Contain at least one special character</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regConfirmPassword">Re-enter Password:</label>
+                        <input type="password" id="regConfirmPassword" name="confirmPassword" required>
+                    </div>
+                    <div class="form-group">
+                    <label for="firstName">First Name:</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                    <label for="lastName">Last Name:</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="planSelect">Choose Your Plan:</label>
+                        <select id="planSelect" name="plan" required>
+                            <option value="basic">Basic Plan - $29/month</option>
+                            <option value="standard">Standard Plan - $49/month</option>
+                            <option value="premium">Premium Plan - $79/month</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="cta-button">Create Account</button>
+                </form>
+                <p class="error-message" id="regErrorMessage"></p>
+                <p class="login-link">Already have an account? <a href="memberships.html">Login here</a></p>
+            </div>
+        </section>
+
+        <section class="plan-details">
+            <h2>Plan Features</h2>
+            <div class="plan-features-grid">
+                <div class="feature-card">
+                    <h3>Basic Plan</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Access to gym facilities</li>
+                        <li><i class="fas fa-check"></i> Basic fitness assessment</li>
+                        <li><i class="fas fa-check"></i> Group classes (limited)</li>
+                        <li><i class="fas fa-check"></i> Locker room access</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>Standard Plan</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> All Basic Plan features</li>
+                        <li><i class="fas fa-check"></i> Unlimited group classes</li>
+                        <li><i class="fas fa-check"></i> Personal trainer sessions</li>
+                        <li><i class="fas fa-check"></i> Fitness tracker access</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>Premium Plan</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> All Standard Plan features</li>
+                        <li><i class="fas fa-check"></i> Priority class booking</li>
+                        <li><i class="fas fa-check"></i> Nutrition consultation</li>
+                        <li><i class="fas fa-check"></i> Spa access</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3> Fitness</h3>
+                <p>Your journey to fitness starts here</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@fitness.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024  Fitness. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="api-service.js"></script>
+    <script src="auth.js"></script>
+            
+    <script>
+         // Hamburger Menu
+        // const hamburger = document.querySelector(".hamburger");
+        // const navLinks = document.querySelector(".nav-links");
+
+        // hamburger.addEventListener("click", () => {
+           //  navLinks.classList.toggle("active");
+            //hamburger.classList.toggle("active");
+        // }); 
+
+        // Password validation feedback
+        const passwordInput = document.getElementById('regPassword');
+        const confirmPasswordInput = document.getElementById('regConfirmPassword');
+        const requirements = {
+            length: document.getElementById('length'),
+            uppercase: document.getElementById('uppercase'),
+            number: document.getElementById('number'),
+            special: document.getElementById('special')
+        };
+
+        function updatePasswordRequirements(password) {
+            // Check length
+            if (password.length >= 8) {
+                requirements.length.classList.add('met');
+            } else {
+                requirements.length.classList.remove('met');
+            }
+
+            // Check uppercase
+            if (/[A-Z]/.test(password)) {
+                requirements.uppercase.classList.add('met');
+            } else {
+                requirements.uppercase.classList.remove('met');
+            }
+
+            // Check number
+            if (/[0-9]/.test(password)) {
+                requirements.number.classList.add('met');
+            } else {
+                requirements.number.classList.remove('met');
+            }
+
+            // Check special character
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                requirements.special.classList.add('met');
+            } else {
+                requirements.special.classList.remove('met');
+            }
+        }
+
+        passwordInput.addEventListener('input', (e) => {
+            updatePasswordRequirements(e.target.value);
+        });
+
+        confirmPasswordInput.addEventListener('input', (e) => {
+            const password = passwordInput.value;
+            const confirmPassword = e.target.value;
+
+            if (password === confirmPassword) {
+                confirmPasswordInput.setCustomValidity('');
+            } else {
+                confirmPasswordInput.setCustomValidity('Passwords do not match');
+            }
+        });
+
+        // Pre-select plan from URL parameter
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedPlan = urlParams.get('plan');
+            if (selectedPlan) {
+                const planSelect = document.getElementById('planSelect');
+                planSelect.value = selectedPlan;
+            }
+        });
+    </script>
+        <script src="contact.js"></script>
+
+
+</body>
+
+</html>

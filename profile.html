@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Fitness</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="./images/logo-photo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h1>Fitness</h1>
+        </div>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="trainer.html">Fitness Trainer</a></li>
+            <li><a href="classes.html">Classes</a></li>
+            <li><a href="memberships.html">Memberships</a></li>
+            <li><a href="tracker.html">Fitness Tracker</a></li>
+            <li><a href="profile.html" class="active">Profile</a></li>
+        </ul>
+    </nav>
+    <main class="profile-main">
+        <div class="profile-container">
+            <!-- Profile Header Section -->
+            <section class="profile-header">
+                <div class="profile-cover">
+                    <div class="profile-avatar-container">
+                        <div class="profile-avatar" id="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <button class="avatar-edit-btn" id="avatar-edit-btn" title="Edit Avatar">
+                            <i class="fas fa-camera"></i>
+                            <span class="sr-only">Edit Avatar</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h1 id="profile-name">User Name</h1>
+                    <p id="profile-email" class="profile-email">user@email.com</p>
+                    <div class="profile-badges">
+                        <span class="badge membership-badge" id="membership-badge">
+                            <i class="fas fa-crown"></i>
+                            <span id="profile-plan">Premium Member</span>
+                        </span>
+                        <span class="badge status-badge active">
+                            <i class="fas fa-circle"></i>
+                            Active
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Content -->
+            <div class="profile-content">
+                <!-- Personal Information Section -->
+                <section class="profile-section" id="personal-info-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-user-circle"></i> Personal Information</h2>
+                        <button class="edit-btn" id="edit-personal-btn">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Full Name</label>
+                            <p id="full-name">John Doe</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Email</label>
+                            <p id="display-email">john.doe@example.com</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Phone</label>
+                            <p id="phone">+1 (555) 123-4567</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Age</label>
+                            <p id="age">28 years</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Gender</label>
+                            <p id="gender">Male</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Date of Birth</label>
+                            <p id="dob">January 15, 1995</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Address</label>
+                            <p id="address">123 Fitness Street, Gym City, GC 12345</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Emergency Contact</label>
+                            <p id="emergency-contact">Jane Doe - +1 (555) 987-6543</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Membership Information Section -->
+                <section class="profile-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-id-card"></i> Membership Details</h2>
+                    </div>
+                    <div class="membership-info">
+                        <div class="membership-card">
+                            <div class="membership-header">
+                                <h3 id="membership-plan-title">Premium Membership</h3>
+                                <span class="membership-status active">Active</span>
+                            </div>
+                            <div class="membership-details">
+                                <div class="detail-item">
+                                    <label>Plan Type</label>
+                                    <p id="plan-type">Premium</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Start Date</label>
+                                    <p id="start-date">January 1, 2024</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Expiry Date</label>
+                                    <p id="expiry-date">December 31, 2024</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Monthly Fee</label>
+                                    <p id="monthly-fee">$99.99</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Next Payment</label>
+                                    <p id="next-payment">February 1, 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Fitness Statistics Section -->
+                <section class="profile-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-chart-line"></i> Fitness Statistics</h2>
+                    </div>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="workouts-completed">24</h3>
+                                <p>Workouts Completed</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="classes-attended">12</h3>
+                                <p>Classes Attended</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="achievements">5</h3>
+                                <p>Achievements Earned</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3 id="streak-days">7</h3>
+                                <p>Day Streak</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Activity Section -->
+                <section class="profile-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-history"></i> Recent Activity</h2>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Strength Training</h4>
+                                <p>Completed upper body workout</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Yoga Class</h4>
+                                <p>Attended evening yoga session</p>
+                                <span class="activity-time">Yesterday</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Achievement Unlocked</h4>
+                                <p>Completed 20 workouts milestone</p>
+                                <span class="activity-time">3 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Action Buttons -->
+            <section class="profile-actions">
+                <div class="action-buttons">
+                    <button class="action-btn primary" id="edit-profile-btn">
+                        <i class="fas fa-edit"></i>
+                        Edit Profile
+                    </button>
+                    <button class="action-btn secondary" id="change-password-btn">
+                        <i class="fas fa-key"></i>
+                        Change Password
+                    </button>
+                    <button class="action-btn danger" id="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- Edit Profile Modal -->
+        <div class="modal" id="edit-profile-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-edit"></i> Edit Profile</h2>
+                    <button class="close-modal" id="close-edit-modal" aria-label="Close Edit Profile Modal" title="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="edit-profile-form" class="edit-profile-form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="edit-first-name">First Name *</label>
+                            <input type="text" id="edit-first-name" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-last-name">Last Name *</label>
+                            <input type="text" id="edit-last-name" name="lastName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-email">Email *</label>
+                            <input type="email" id="edit-email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-phone">Phone</label>
+                            <input type="tel" id="edit-phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-age">Age</label>
+                            <input type="number" id="edit-age" name="age" min="16" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-gender">Gender</label>
+                            <select id="edit-gender" name="gender">
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not-to-say">Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-dob">Date of Birth</label>
+                            <input type="date" id="edit-dob" name="dob">
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-address">Address</label>
+                            <textarea id="edit-address" name="address" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-emergency-contact">Emergency Contact</label>
+                            <input type="text" id="edit-emergency-contact" name="emergencyContact">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancel-edit-btn">Cancel</button>
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Change Password Modal -->
+        <div class="modal" id="change-password-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-key"></i> Change Password</h2>
+                    <button class="close-modal" id="close-password-modal" aria-label="Close Change Password Modal" title="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form id="change-password-form" class="change-password-form">
+                    <div class="form-group">
+                        <label for="current-password">Current Password *</label>
+                        <input type="password" id="current-password" name="currentPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">New Password *</label>
+                        <input type="password" id="new-password" name="newPassword" required>
+                        <div class="password-strength" id="password-strength"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm New Password *</label>
+                        <input type="password" id="confirm-password" name="confirmPassword" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancel-password-btn">Cancel</button>
+                        <button type="submit" class="btn primary">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Avatar Selection Modal -->
+        <div class="avatar-selection-modal" id="avatar-selection-modal">
+            <div class="avatar-selection-content">
+                <div class="avatar-selection-header">
+                    <h2><i class="fas fa-user-circle"></i> Choose Your Avatar</h2>
+                    <button class="close-modal" id="close-avatar-modal" title="Close Avatar Selection Modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="avatar-options" id="avatar-options">
+                    <!-- Avatar options will be populated by JavaScript -->
+                </div>
+                <div class="avatar-selection-actions">
+                    <button type="button" class="btn secondary" id="cancel-avatar-btn">Cancel</button>
+                    <button type="button" class="btn primary" id="save-avatar-btn">
+                        <i class="fas fa-save"></i>
+                        Save Avatar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Fitness</h3>
+                <p>Your journey to fitness starts here</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>Email: info@fitness.com</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Fitness. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Load API service first -->
+    <script src="api-service.js"></script>
+    <script src="config.js"></script>
+    <script src="auth.js"></script>
+    <script src="avatar-manager.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Profile page logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait for auth to be available
+            setTimeout(() => {
+                initializeProfilePage();
+            }, 100);
+        });
+
+        function initializeProfilePage() {
+            // Load user data
+            loadUserProfile();
+
+            // Setup event listeners
+            setupEventListeners();
+
+            // Render user profile in navbar
+            if (typeof renderUserProfile === 'function') {
+                renderUserProfile();
+            }
+
+            // Add Profile link to navigation
+            if (typeof addProfileLinkToNav === 'function') {
+                addProfileLinkToNav();
+            }
+        }
+
+        function loadUserProfile() {
+            // Get user data from localStorage or use dummy data
+            const user = window.auth ? window.auth.getCurrentUser() : null;
+
+            if (user) {
+                // Update profile with real user data
+                updateProfileDisplay(user);
+            } else {
+                // Use dummy data for demonstration
+                const dummyUser = {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    email: 'john.doe@example.com',
+                    phone: '+1 (555) 123-4567',
+                    age: 28,
+                    gender: 'Male',
+                    dob: '1995-01-15',
+                    address: '123 Fitness Street, Gym City, GC 12345',
+                    emergencyContact: 'Jane Doe - +1 (555) 987-6543',
+                    membershipType: 'Premium',
+                    membershipPlan: 'Premium Membership',
+                    startDate: '2024-01-01',
+                    expiryDate: '2024-12-31',
+                    monthlyFee: '$99.99',
+                    nextPayment: '2024-02-01',
+                    workoutsCompleted: 24,
+                    classesAttended: 12,
+                    achievements: 5,
+                    streakDays: 7
+                };
+                updateProfileDisplay(dummyUser);
+            }
+        }
+
+        function updateProfileDisplay(user) {
+            // Update avatar using avatar manager
+            const avatarElement = document.getElementById('profile-avatar');
+            if (avatarElement && window.avatarManager) {
+                const avatarStyle = window.avatarManager.getUserAvatarStyle(user);
+                window.avatarManager.applyAvatar(avatarElement, user, avatarStyle);
+            }
+
+            // Update profile info
+            document.getElementById('profile-name').textContent = `${user.firstName || ''} ${user.lastName || ''}`.trim();
+            document.getElementById('profile-email').textContent = user.email || '';
+            document.getElementById('profile-plan').textContent = user.membershipType || 'Member';
+            document.getElementById('membership-plan-title').textContent = user.membershipPlan || 'Membership';
+
+            // Update personal information
+            document.getElementById('full-name').textContent = `${user.firstName || ''} ${user.lastName || ''}`.trim();
+            document.getElementById('display-email').textContent = user.email || '';
+            document.getElementById('phone').textContent = user.phone || 'Not provided';
+            document.getElementById('age').textContent = user.age ? `${user.age} years` : 'Not provided';
+            document.getElementById('gender').textContent = user.gender || 'Not provided';
+            document.getElementById('dob').textContent = user.dob ? new Date(user.dob).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) : 'Not provided';
+            document.getElementById('address').textContent = user.address || 'Not provided';
+            document.getElementById('emergency-contact').textContent = user.emergencyContact || 'Not provided';
+
+            // Update membership details
+            document.getElementById('plan-type').textContent = user.membershipType || 'Standard';
+            document.getElementById('start-date').textContent = user.startDate ? new Date(user.startDate).toLocaleDateString() : 'N/A';
+            document.getElementById('expiry-date').textContent = user.expiryDate ? new Date(user.expiryDate).toLocaleDateString() : 'N/A';
+            document.getElementById('monthly-fee').textContent = user.monthlyFee || 'N/A';
+            document.getElementById('next-payment').textContent = user.nextPayment ? new Date(user.nextPayment).toLocaleDateString() : 'N/A';
+
+            // Update statistics
+            document.getElementById('workouts-completed').textContent = user.workoutsCompleted || 0;
+            document.getElementById('classes-attended').textContent = user.classesAttended || 0;
+            document.getElementById('achievements').textContent = user.achievements || 0;
+            document.getElementById('streak-days').textContent = user.streakDays || 0;
+
+            // Fill edit form with current values
+            fillEditForm(user);
+        }
+
+        function fillEditForm(user) {
+            document.getElementById('edit-first-name').value = user.firstName || '  ';
+            document.getElementById('edit-last-name').value = user.lastName || '  ';
+            document.getElementById('edit-email').value = user.email || '  ';
+            document.getElementById('edit-phone').value = user.phone || '  ';
+            document.getElementById('edit-age').value = user.age || '  ';
+            document.getElementById('edit-gender').value = user.gender || '  ';
+            document.getElementById('edit-dob').value = user.dob || '  ';
+            document.getElementById('edit-address').value = user.address || '  ';
+            document.getElementById('edit-emergency-contact').value = user.emergencyContact || '  ';
+        }
+
+        function setupEventListeners() {
+            // Edit profile button
+            document.getElementById('edit-profile-btn').addEventListener('click', () => {
+                document.getElementById('edit-profile-modal').style.display = 'flex';
+            });
+
+            // Edit personal info button
+            document.getElementById('edit-personal-btn').addEventListener('click', () => {
+                document.getElementById('edit-profile-modal').style.display = 'flex';
+            });
+
+            // Change password button
+            document.getElementById('change-password-btn').addEventListener('click', () => {
+                document.getElementById('change-password-modal').style.display = 'flex';
+            });
+
+            // Logout button
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                if (window.auth && window.auth.logout) {
+                    window.auth.logout();
+                } else {
+                    // Fallback logout
+                    localStorage.removeItem('authToken');
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'index.html';
+                }
+            });
+
+            // Close modals
+            document.getElementById('close-edit-modal').addEventListener('click', () => {
+                document.getElementById('edit-profile-modal').style.display = 'none';
+            });
+
+            document.getElementById('close-password-modal').addEventListener('click', () => {
+                document.getElementById('change-password-modal').style.display = 'none';
+            });
+
+            document.getElementById('cancel-edit-btn').addEventListener('click', () => {
+                document.getElementById('edit-profile-modal').style.display = 'none';
+            });
+
+            document.getElementById('cancel-password-btn').addEventListener('click', () => {
+                document.getElementById('change-password-modal').style.display = 'none';
+            });
+
+            // Close modals when clicking outside
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+
+            // Edit profile form submission
+            document.getElementById('edit-profile-form').addEventListener('submit', handleProfileUpdate);
+
+            // Change password form submission
+            document.getElementById('change-password-form').addEventListener('submit', handlePasswordChange);
+
+            // Password strength indicator
+            document.getElementById('new-password').addEventListener('input', checkPasswordStrength);
+
+            // Avatar edit button
+            document.getElementById('avatar-edit-btn').addEventListener('click', showAvatarSelectionModal);
+
+            // Avatar selection modal events
+            document.getElementById('close-avatar-modal').addEventListener('click', () => {
+                document.getElementById('avatar-selection-modal').style.display = 'none';
+            });
+
+            document.getElementById('cancel-avatar-btn').addEventListener('click', () => {
+                document.getElementById('avatar-selection-modal').style.display = 'none';
+            });
+
+            document.getElementById('save-avatar-btn').addEventListener('click', saveAvatarSelection);
+        }
+
+        async function handleProfileUpdate(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const updatedData = Object.fromEntries(formData.entries());
+
+            try {
+                // Show loading state
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                submitBtn.disabled = true;
+
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Update local storage
+                const currentUser = window.auth ? window.auth.getCurrentUser() : {};
+                const updatedUser = {...currentUser,
+                    ...updatedData
+                };
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+                // Update display
+                updateProfileDisplay(updatedUser);
+
+                // Close modal
+                document.getElementById('edit-profile-modal').style.display = 'none';
+
+                // Show success message
+                if (window.showSuccessMessage) {
+                    window.showSuccessMessage('Profile updated successfully!');
+                } else {
+                    alert('Profile updated successfully!');
+                }
+
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                alert('Error updating profile. Please try again.');
+            } finally {
+                // Reset button
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Changes';
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function handlePasswordChange(e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const {
+                currentPassword,
+                newPassword,
+                confirmPassword
+            } = Object.fromEntries(formData.entries());
+
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+
+            try {
+                // Show loading state
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Changing...';
+                submitBtn.disabled = true;
+
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Close modal
+                document.getElementById('change-password-modal').style.display = 'none';
+
+                // Reset form
+                e.target.reset();
+
+                // Show success message
+                if (window.showSuccessMessage) {
+                    window.showSuccessMessage('Password changed successfully!');
+                } else {
+                    alert('Password changed successfully!');
+                }
+
+            } catch (error) {
+                console.error('Error changing password:', error);
+                alert('Error changing password. Please try again.');
+            } finally {
+                // Reset button
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-key"></i> Change Password';
+                submitBtn.disabled = false;
+            }
+        }
+
+        function checkPasswordStrength(e) {
+            const password = e.target.value;
+            const strengthDiv = document.getElementById('password-strength');
+
+            let strength = 0;
+            let feedback = '';
+
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            switch (strength) {
+                case 0:
+                case 1:
+                    feedback = '<span style="color: #e74c3c;">Weak</span>';
+                    break;
+                case 2:
+                    feedback = '<span style="color: #f39c12;">Fair</span>';
+                    break;
+                case 3:
+                    feedback = '<span style="color: #f1c40f;">Good</span>';
+                    break;
+                case 4:
+                    feedback = '<span style="color: #27ae60;">Strong</span>';
+                    break;
+            }
+
+            strengthDiv.innerHTML = feedback;
+        }
+
+        // Avatar selection functions
+        function showAvatarSelectionModal() {
+            const modal = document.getElementById('avatar-selection-modal');
+            const optionsContainer = document.getElementById('avatar-options');
+
+            // Get current user
+            const user = window.auth ? window.auth.getCurrentUser() : null;
+            if (!user) {
+                alert('Please log in to change your avatar');
+                return;
+            }
+
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+
+            // Get available avatar styles
+            const styles = window.avatarManager.getStyleNames();
+            const currentStyle = window.avatarManager.getUserAvatarStyle(user);
+
+            // Create avatar options
+            styles.forEach(style => {
+                const option = document.createElement('div');
+                option.className = `avatar-option ${style.key === currentStyle ? 'selected' : ''}`;
+                option.setAttribute('data-style', style.key);
+
+                const preview = document.createElement('div');
+                preview.className = 'avatar-option-preview';
+
+                // Generate preview avatar
+                const avatar = window.avatarManager.generateAvatar(user, style.key);
+                preview.innerHTML = avatar.html;
+                preview.style.cssText = avatar.style;
+
+                const name = document.createElement('div');
+                name.className = 'avatar-option-name';
+                name.textContent = style.name;
+
+                option.appendChild(preview);
+                option.appendChild(name);
+
+                // Add click event
+                option.addEventListener('click', () => {
+                    // Remove previous selection
+                    document.querySelectorAll('.avatar-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    // Select current option
+                    option.classList.add('selected');
+                });
+
+                optionsContainer.appendChild(option);
+            });
+
+            modal.style.display = 'flex';
+        }
+
+        function saveAvatarSelection() {
+            const selectedOption = document.querySelector('.avatar-option.selected');
+            if (!selectedOption) {
+                alert('Please select an avatar style');
+                return;
+            }
+
+            const selectedStyle = selectedOption.getAttribute('data-style');
+            const user = window.auth ? window.auth.getCurrentUser() : null;
+
+            if (!user) {
+                alert('Please log in to save your avatar');
+                return;
+            }
+
+            // Save the avatar style
+            const success = window.avatarManager.setUserAvatarStyle(user, selectedStyle);
+
+            if (success) {
+                // Update the profile avatar
+                const avatarElement = document.getElementById('profile-avatar');
+                if (avatarElement) {
+                    window.avatarManager.applyAvatar(avatarElement, user, selectedStyle);
+                }
+
+                // Close modal
+                document.getElementById('avatar-selection-modal').style.display = 'none';
+
+                // Show success message
+                if (window.showSuccessMessage) {
+                    window.showSuccessMessage('Avatar updated successfully!');
+                } else {
+                    alert('Avatar updated successfully!');
+                }
+            } else {
+                alert('Error updating avatar. Please try again.');
+            }
+        }
+    </script>
+</body>
+
+</html>
